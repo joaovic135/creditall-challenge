@@ -1,14 +1,18 @@
 import { tv } from "tailwind-variants";
 
-const page = tv({
+const itemPage = tv({
   slots: {
-    root: "min-h-screen bg-zinc-50 dark:bg-zinc-950 py-12 px-4",
-    container: "mx-auto max-w-4xl",
-    title: "text-2xl font-semibold text-zinc-900 dark:text-zinc-100 mb-8",
-    section: "mb-10",
-    sectionTitle: "text-lg font-medium text-zinc-800 dark:text-zinc-200 mb-4",
-    grid: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3",
+    root: "min-h-screen bg-background py-12",
+    container: "mx-auto max-w-4xl space-y-8 px-4",
+    header: "",
+    title: "text-3xl font-bold tracking-tight",
+    subtitle: "mt-1 text-muted-foreground",
+    section: "space-y-4",
+    sectionTitle: "text-xl font-semibold",
+    grid: "grid gap-4 sm:grid-cols-2 lg:grid-cols-3",
   },
 });
 
-export const styles = page();
+export default function styles() {
+  return itemPage();
+}

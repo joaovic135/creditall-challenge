@@ -20,6 +20,7 @@ export async function POST(request: Request) {
       name: body.name,
       description: body.description,
       price: Number(body.price),
+      imageUrl: body.imageUrl || undefined,
     });
 
     if (!parsed.success) {

@@ -2,7 +2,11 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createProductSchema, type CreateProductSchema } from "@/lib/schemas/product";
+import {
+  createProductSchema,
+  type CreateProductFormValues,
+  type CreateProductSchema,
+} from "@/lib/schemas/product";
 import { useProducts } from "./useProducts";
 import { useCreateProduct } from "./useCreateProduct";
 
@@ -12,12 +16,13 @@ export function useItemPage() {
     onSuccess: reload,
   });
 
-  const form = useForm<CreateProductSchema>({
+  const form = useForm<CreateProductFormValues, unknown, CreateProductSchema>({
     resolver: zodResolver(createProductSchema),
     defaultValues: {
       name: "",
       description: "",
-      price: 0,
+      price: undefined as unknown as number,
+      imageUrl: "",
     },
   });
 

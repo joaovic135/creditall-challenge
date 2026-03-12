@@ -8,6 +8,7 @@ export async function getProducts() {
       name: true,
       description: true,
       price: true,
+      imageUrl: true,
     },
   });
 }
@@ -18,12 +19,14 @@ export async function createProduct(data: CreateProductSchema) {
       name: data.name,
       description: data.description,
       price: data.price,
+      imageUrl: data.imageUrl ?? null,
     },
     select: {
       id: true,
       name: true,
       description: true,
       price: true,
+      imageUrl: true,
     },
   });
 }

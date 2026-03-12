@@ -1,10 +1,13 @@
 import { tv } from "tailwind-variants";
 
-const fullPageState = tv({
+const loadingState = tv({
   slots: {
-    root: "flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950",
-    message: "text-zinc-600 dark:text-zinc-400",
+    root: "flex min-h-screen flex-col items-center justify-center gap-4 bg-background",
+    icon: "size-8 animate-spin text-muted-foreground",
+    text: "text-sm text-muted-foreground",
   },
 });
 
-export const styles = fullPageState();
+export default function styles() {
+  return loadingState();
+}

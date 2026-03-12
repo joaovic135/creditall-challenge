@@ -19,7 +19,7 @@ describe("getProducts service", () => {
 
   it("retorna produtos do banco com id, name, description e price", async () => {
     const mockProducts = [
-      { id: 1, name: "Product 1", description: "Desc 1", price: 29.99 },
+      { id: 1, name: "Product 1", description: "Desc 1", price: 29.99, imageUrl: null },
     ];
 
     vi.mocked(prisma.product.findMany).mockResolvedValue(mockProducts);
@@ -33,6 +33,7 @@ describe("getProducts service", () => {
         name: true,
         description: true,
         price: true,
+        imageUrl: true,
       },
     });
   });
@@ -49,6 +50,7 @@ describe("createProduct service", () => {
       name: "Novo",
       description: "Descrição",
       price: 19.9,
+      imageUrl: null,
     };
 
     vi.mocked(prisma.product.create).mockResolvedValue(mockProduct);
@@ -57,6 +59,7 @@ describe("createProduct service", () => {
       name: "Novo",
       description: "Descrição",
       price: 19.9,
+      imageUrl: undefined,
     });
 
     expect(result).toEqual(mockProduct);
@@ -65,12 +68,14 @@ describe("createProduct service", () => {
         name: "Novo",
         description: "Descrição",
         price: 19.9,
+        imageUrl: null,
       },
       select: {
         id: true,
         name: true,
         description: true,
         price: true,
+        imageUrl: true,
       },
     });
   });

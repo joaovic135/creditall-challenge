@@ -150,8 +150,16 @@ Documento de tomada de decisões arquiteturais e de design. Para solicitar a exp
 
 ## 19. Componentes e páginas com pasta própria
 
-**Decisão:** Cada componente e página tem pasta `Nome/index.tsx` e `Nome/styles.ts`. Estilos em `styles.ts` com `export const styles = tv()()`.
+**Decisão:** Cada componente e página tem pasta `Nome/index.tsx` e `Nome/styles.ts`. Estilos em `styles.ts` com `export const styles = tv()`.
 
 **Por quê:** Colocation de estilos com o componente; `styles.root()`, `styles.input()` etc.; evolução isolada por componente.
+
+---
+
+## 20. ShadCN UI para componentes
+
+**Decisão:** Componentes de UI usam ShadCN (Button, Input, Label, Card) em `components/ui/`.
+
+**Por quê:** Design system consistente; acessibilidade; tema com variáveis CSS; componentes no projeto.
 
 ---
