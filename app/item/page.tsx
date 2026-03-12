@@ -27,7 +27,7 @@ export default function ItemPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-        <p className="text-zinc-600 dark:text-zinc-400">Carregando...</p>
+        <p className="text-zinc-600 dark:text-zinc-400">Carregando item...</p>
       </div>
     );
   }
