@@ -7,9 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Produto {
+model Product {
   id          Int     @id @default(autoincrement())
-  nome        String
-  descricao   String
-  preco       Float
+  name        String
+  description String
+  price       Float
 }

@@ -76,8 +76,82 @@ Documento de tomada de decisões arquiteturais e de design. Para solicitar a exp
 
 ---
 
-## 10. Rules locais (ignoradas pelo git)
+## 10. React Hook Form + Zod no frontend
 
-**Decisão:** `.cursor/rules/` no `.gitignore`.
+**Decisão:** Formulários com `react-hook-form` e `@hookform/resolvers/zod`.
 
-**Por quê:** Regras pessoais do desenvolvedor; não versionadas para não afetar o time.
+**Por quê:** Validação declarativa; integração nativa com Zod; menos re-renders; boa DX.
+
+---
+
+## 11. Schema Zod compartilhado
+
+**Decisão:** Schemas em `lib/schemas/` usados no frontend e backend.
+
+**Por quê:** Uma única fonte de verdade; tipagem e validação consistentes; evita duplicação de regras.
+
+---
+
+## 12. Validação Zod no backend
+
+**Decisão:** Route Handlers validam body com `schema.safeParse()` antes de chamar services.
+
+**Por quê:** Garantir dados corretos na entrada; mensagens de erro padronizadas; rejeitar payloads inválidos cedo.
+
+---
+
+## 13. SOLID e Clean Code no frontend
+
+**Decisão:** Princípios SOLID e Clean Code aplicados em `app/`.
+
+**Por quê:** Código mais manutenível; responsabilidades claras; componentes e hooks reutilizáveis; keys estáveis em listas.
+
+---
+
+## 14. Hooks em `hooks/`
+
+**Decisão:** Custom hooks em `app/<rota>/hooks/` (ex: `useProducts`, `useCreateProduct`, `useItemPage`).
+
+**Por quê:** Lógica separada da UI; hooks pequenos e focados; orquestração em hooks de página.
+
+---
+
+## 15. API client no frontend
+
+**Decisão:** Camada `app/<rota>/api/` com funções de fetch (ex: `fetchProducts`, `postProduct`).
+
+**Por quê:** Inversão de dependência; facilita testes e troca de implementação; encapsula URLs e headers.
+
+---
+
+## 16. Componentes extraídos
+
+**Decisão:** Componentes pequenos e focados: `ProductCard`, `ProductForm`, `LoadingState`, `ErrorState`.
+
+**Por quê:** Single Responsibility; reutilização; páginas mais legíveis; testes mais simples.
+
+---
+
+## 17. Zod v4 e API de erro
+
+**Decisão:** Uso de `error: (issue) => string` em vez de `invalid_type_error` / `required_error`.
+
+**Por quê:** Zod v4 removeu esses parâmetros; API unificada com `error`; mensagens customizadas por tipo de issue.
+
+---
+
+## 18. Tailwind Variants no frontend
+
+**Decisão:** Componentes com estilos Tailwind usam `tailwind-variants` (`tv`) para variantes, slots e composição de classes.
+
+**Por quê:** Variantes tipadas; resolução de conflitos com tailwind-merge; código mais declarativo e manutenível.
+
+---
+
+## 19. Componentes e páginas com pasta própria
+
+**Decisão:** Cada componente e página tem pasta `Nome/index.tsx` e `Nome/styles.ts`. Estilos em `styles.ts` com `export const styles = tv()()`.
+
+**Por quê:** Colocation de estilos com o componente; `styles.root()`, `styles.input()` etc.; evolução isolada por componente.
+
+---

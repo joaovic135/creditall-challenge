@@ -3,17 +3,17 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.produto.createMany({
+  await prisma.product.createMany({
     data: [
       {
-        nome: "Produto Exemplo 1",
-        descricao: "Descrição do primeiro produto",
-        preco: 29.99,
+        name: "Product Exemplo 1",
+        description: "Descrição do primeiro product",
+        price: 29.99,
       },
       {
-        nome: "Produto Exemplo 2",
-        descricao: "Descrição do segundo produto",
-        preco: 49.99,
+        name: "Product Exemplo 2",
+        description: "Descrição do segundo product",
+        price: 49.99,
       },
     ],
   });
