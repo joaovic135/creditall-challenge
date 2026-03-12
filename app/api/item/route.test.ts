@@ -48,12 +48,16 @@ describe("GET /api/item", () => {
   it("retorna 500 quando o service lança erro", async () => {
     vi.mocked(getProdutos).mockRejectedValue(new Error("Database error"));
 
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
     const request = new Request("http://localhost/api/item");
     const response = await GET(request);
 
     expect(response.status).toBe(500);
     const text = await response.text();
     expect(text).toBe("Unexpected error");
+
+    consoleSpy.mockRestore();
   });
 
   it("retorna array vazio quando não há produtos", async () => {
