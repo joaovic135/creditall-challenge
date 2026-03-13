@@ -49,7 +49,14 @@ describe("PUT /api/sale/[id]", () => {
 
     expect(response.status).toBe(200);
     const data = await response.json();
-    expect(data).toEqual(mockSale);
+    expect(data).toMatchObject({
+      id: 1,
+      productId: 1,
+      quantity: 3,
+      discount: 15,
+      status: "pago",
+    });
+    expect(data.saleDate).toBe("2025-01-15T00:00:00.000Z");
     expect(updateSale).toHaveBeenCalledWith(
       1,
       expect.objectContaining({

@@ -41,7 +41,16 @@ describe("GET /api/sale", () => {
 
     expect(response.status).toBe(200);
     const data = await response.json();
-    expect(data).toEqual(mockSales);
+    expect(data).toHaveLength(1);
+    expect(data[0]).toMatchObject({
+      id: 1,
+      productId: 1,
+      quantity: 2,
+      discount: 10,
+      status: "pago",
+      product: { id: 1, name: "Produto 1", price: 29.99 },
+    });
+    expect(data[0].saleDate).toBe("2025-01-15T00:00:00.000Z");
     expect(getSales).toHaveBeenCalledTimes(1);
   });
 
