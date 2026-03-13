@@ -37,7 +37,7 @@ export const createSaleSchema = z.object({
     .min(0, "Desconto não pode ser negativo")
     .default(0),
   status: z.enum(SALE_STATUSES, {
-    errorMap: () => ({ message: "Status deve ser pendente, pago ou cancelado" }),
+    message: "Status deve ser pendente, pago ou cancelado",
   }),
 });
 
