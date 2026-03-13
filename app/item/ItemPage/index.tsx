@@ -1,11 +1,13 @@
 "use client";
 
 import { useItemPage } from "../hooks/useItemPage";
+import { ErrorState } from "@/components/ErrorState";
 import {
-  ErrorState,
-  LoadingState,
   ProductCard,
+  ProductCardSkeleton,
   ProductForm,
+  EditProductModal,
+  DeleteProductDialog,
 } from "../components";
 import styles from "./styles";
 
@@ -16,13 +18,22 @@ export function ItemPage() {
     error,
     creating,
     createError,
-    form,
+    updating,
+    updateError,
+    createForm,
+    editForm,
     handleCreateSubmit,
+    editingProduct,
+    handleEdit,
+    handleUpdateSubmit,
+    handleCancelEdit,
+    deletingProduct,
+    handleDelete,
+    handleConfirmDelete,
+    handleCancelDelete,
+    deleting,
+    deleteError,
   } = useItemPage();
-
-  if (loading) {
-    return <LoadingState message="Carregando item..." />;
-  }
 
   if (error) {
     return <ErrorState message={error} />;
@@ -39,25 +50,61 @@ export function ItemPage() {
         <section className={styles().section()}>
           <h2 className={styles().sectionTitle()}>Novo produto</h2>
           <ProductForm
-            form={form}
+            form={createForm}
             onSubmit={handleCreateSubmit}
             isSubmitting={creating}
             submitError={createError}
+            submitLabel="Criar produto"
           />
         </section>
 
         <section className={styles().section()}>
           <h2 className={styles().sectionTitle()}>Lista de produtos</h2>
           <div className={styles().grid()}>
-            {products.map((product) => (
-              <ProductCard
-                key={product.id ?? `${product.name}-${product.price}`}
-                product={product}
-              />
-            ))}
+            {loading ? (
+              <>
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <ProductCardSkeleton key={i} />
+                ))}
+              </>
+            ) : (
+              products.map((product) => (
+                <ProductCard
+                  key={product.id ?? `${product.name}-${product.price}`}
+                  product={product}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              ))
+            )}
           </div>
         </section>
       </div>
+
+      <EditProductModal
+        open={!!editingProduct}
+        onOpenChange={(open) => {
+          if (!open) handleCancelEdit();
+        }}
+        product={editingProduct}
+        form={editForm}
+        onSubmit={handleUpdateSubmit}
+        onCancel={handleCancelEdit}
+        isSubmitting={updating}
+        submitError={updateError}
+      />
+
+      <DeleteProductDialog
+        open={!!deletingProduct}
+        onOpenChange={(open) => {
+          if (!open) handleCancelDelete();
+        }}
+        product={deletingProduct}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+        isDeleting={deleting}
+        deleteError={deleteError}
+      />
     </div>
   );
 }

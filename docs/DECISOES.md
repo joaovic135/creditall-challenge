@@ -126,7 +126,7 @@ Documento de tomada de decisões arquiteturais e de design. Para solicitar a exp
 
 ## 16. Componentes extraídos
 
-**Decisão:** Componentes pequenos e focados: `ProductCard`, `ProductForm`, `LoadingState`, `ErrorState`.
+**Decisão:** Componentes pequenos e focados: `ProductCard`, `ProductForm`, `ProductCardSkeleton`, `ErrorState`.
 
 **Por quê:** Single Responsibility; reutilização; páginas mais legíveis; testes mais simples.
 

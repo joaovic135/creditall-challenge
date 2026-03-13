@@ -21,6 +21,7 @@ const productForm = tv({
     imageUpload:
       "flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-input px-6 py-8 text-center transition-colors hover:border-ring hover:bg-muted/50 cursor-pointer",
     imagePreview: "size-20 rounded-lg object-cover",
+    formActions: "flex flex-wrap gap-2",
   },
 });
 

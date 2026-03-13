@@ -40,3 +40,32 @@ export async function postProduct(
 
   return responseData;
 }
+
+export async function putProduct(
+  id: number,
+  data: CreateProductSchema
+): Promise<ProductSchema> {
+  const res = await fetch(`${API_BASE}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  const responseData = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(responseData.error || "Erro ao atualizar produto");
+  }
+
+  return responseData;
+}
+
+export async function deleteProduct(id: number): Promise<void> {
+  const res = await fetch(`${API_BASE}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || "Erro ao excluir produto");
+  }
+}

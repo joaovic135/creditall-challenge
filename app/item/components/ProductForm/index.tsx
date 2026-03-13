@@ -20,6 +20,11 @@ interface ProductFormProps {
   onSubmit: (data: CreateProductSchema) => void | Promise<void>;
   isSubmitting: boolean;
   submitError: string | null;
+  submitLabel?: string;
+  submitLoadingLabel?: string;
+  onCancel?: () => void;
+  /** Quando true, não usa Card (ex.: dentro de modal) */
+  embedded?: boolean;
 }
 
 function blockInvalidPriceKeys(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -34,7 +39,12 @@ export function ProductForm({
   onSubmit,
   isSubmitting,
   submitError,
+  submitLabel = "Criar produto",
+  submitLoadingLabel,
+  onCancel,
+  embedded = false,
 }: ProductFormProps) {
+  const loadingLabel = submitLoadingLabel ?? (submitLabel === "Salvar" ? "Salvando..." : "Criando...");
   const { register, handleSubmit, formState: { errors }, setValue, watch } = form;
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -65,10 +75,13 @@ export function ProductForm({
     fileInputRef.current?.focus();
   };
 
+  const FormWrapper = embedded ? "div" : Card;
+  const ContentWrapper = embedded ? "div" : CardContent;
+
   return (
-    <Card>
+    <FormWrapper>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardContent className={styles().formContent()}>
+        <ContentWrapper className={styles().formContent()}>
           <div className={styles().fieldGroup()}>
             <Label htmlFor="name">Nome</Label>
             <Input
@@ -169,11 +182,18 @@ export function ProductForm({
           {submitError && (
             <p className={styles().errorText()}>{submitError}</p>
           )}
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Criando..." : "Criar produto"}
-          </Button>
-        </CardContent>
+          <div className={styles().formActions()}>
+            {onCancel && (
+              <Button type="button" variant="outline" onClick={onCancel}>
+                Cancelar
+              </Button>
+            )}
+            <Button type="submit" disabled={isSubmitting || uploading}>
+              {isSubmitting ? loadingLabel : submitLabel}
+            </Button>
+          </div>
+        </ContentWrapper>
       </form>
-    </Card>
+    </FormWrapper>
   );
 }
